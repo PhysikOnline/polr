@@ -41,6 +41,8 @@ class LinkFactory {
         * @return string $formatted_link
         */
 
+//        $lh = new LinkHelper(); // TODO: remove static access
+
         if (strlen($long_url) > self::MAXIMUM_LINK_LENGTH) {
             // If $long_url is longer than the maximum length, then
             // throw an Exception
@@ -63,14 +65,16 @@ class LinkFactory {
         }
 
         if (!empty(env('SETTING_WHITELISTED_DOMAINS'))) {
-            $is_whitelisted = LinkHelper::checkWhiteList($long_url);
+//             TODO: remove static access? maybe for all funct calls?
+//            $is_whitelisted = $lh::checkAuthUrl($long_url, env('SETTING_WHITELISTED_DOMAINS'));
+            $is_whitelisted = LinkHelper::checkAuthUrl($long_url, env('SETTING_WHITELISTED_DOMAINS'));
             if (!$is_whitelisted) {
                 throw new  \Exception('Sorry, only links from the whitelist are supported for shortening.');
             }
         }
 
         if (!empty(env('SETTING_BLACKLISTED_DOMAINS'))) {
-            $is_blacklisted = LinkHelper::checkBlackList($long_url);
+            $is_blacklisted = !LinkHelper::checkAuthUrl($long_url, env('SETTING_BLACKLISTED_DOMAINS'));
             if (!$is_blacklisted) {
                 throw new  \Exception('Sorry, links from the blacklist are not permitted for shortening.');
             }

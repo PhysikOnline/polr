@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <body>
     @include('snippets.navbar')
     <div class="container">
-        <img src="https://physikonline.github.io/TinyGU/assets/goethe_head_blue.svg" id="goethe-head">
+        <img src="/img/goethe_head_blue.svg" id="goethe-head">
         <div class="content-div @if (!isset($no_div_padding)) content-div-padding @endif @if (isset($large)) jumbotron large-content-div @endif">
             @yield('content')
         </div>

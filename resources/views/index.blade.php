@@ -27,9 +27,12 @@
         @endif
 
         <div>
-            <div class='custom-link-text'>
-                <h2 class='site-url-field'>{{env('APP_ADDRESS')}}/</h2>
-                <input type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
+            {{--<div class='custom-link-text'>--}}
+            <div class='input-group custom-short-link'>
+                <span class="input-group-addon" id="url-prefix">{{env('APP_ADDRESS')}}/</span>
+                <input type="text" class="form-control custom-url-field" aria-describedby="url-prefix" name='custom-ending'>
+                {{--<h2 class='site-url-field'>{{env('APP_ADDRESS')}}/</h2>--}}
+                {{--<input type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />--}}
             </div>
             <div>
                 <a href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>

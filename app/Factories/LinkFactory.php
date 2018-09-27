@@ -62,6 +62,20 @@ class LinkFactory {
             return self::formatLink($existing_link);
         }
 
+        if (!empty(env('SETTING_WHITELISTED_DOMAINS'))) {
+            $is_whitelisted = LinkHelper::checkWhiteList($long_url);
+            if (!$is_whitelisted) {
+                throw new  \Exception('Sorry, only links from the whitelist are supported for shortening.');
+            }
+        }
+
+        if (!empty(env('SETTING_BLACKLISTED_DOMAINS'))) {
+            $is_blacklisted = LinkHelper::checkBlackList($long_url);
+            if (!$is_blacklisted) {
+                throw new  \Exception('Sorry, links from the blacklist are not permitted for shortening.');
+            }
+        }
+
         if (isset($custom_ending) && $custom_ending !== '') {
             // has custom ending
             $ending_conforms = LinkHelper::validateEnding($custom_ending);
